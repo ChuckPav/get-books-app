@@ -16,3 +16,9 @@
 .App-title {
   font-size: 1.5em;
 }
+
+select, input {
+  border-color: cornflowerblue;
+  border-style: outset;
+  border-width: 3px;
+}
