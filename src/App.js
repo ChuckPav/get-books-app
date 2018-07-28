@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import logo from './roundbook.png';
-import './App.css';
-import BookDisplay from './components/BookDisplay'
+import './css/App.css';
+import BookDisplay from './components/BookDisplay';
+import FilterOptions from './components/FilterOptions';
+import SortOptions from './components/SortOptions';
+import LimitOptions from './components/LimitOptions';
+import FilterInput from './components/FilterInput';
 
 class App extends Component {
   constructor() {
@@ -31,20 +35,20 @@ class App extends Component {
       });
   }
 
-  changeFilterBy(event) {
-    this.setState({filterBy: event.target.value});
+  changeFilterBy(value) {
+    this.setState({filterBy: value});
   }
 
-  changeFilterValue(event) {
-    this.setState({filterValue: event.target.value});
+  changeFilterValue(value) {
+    this.setState({filterValue: value});
   }
 
-  changeSortBy(event) {
-    this.setState({sortBy: event.target.value});
+  changeSortBy(value) {
+    this.setState({sortBy: value});
   }
 
-  changeLimit(event) {
-    const limit = parseInt(event.target.value)
+  changeLimit(value) {
+    const limit = parseInt(value)
     this.setState({ limit });
   }
 
@@ -55,44 +59,14 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Check Out These Books!</h1>
         </header>
-        <div>
-          
-          <p>Filter And Sorting Options:</p>
-          <select id="filterBy" onChange={this.changeFilterBy} value={this.state.filterBy}>
-            <option value="title">Filter By Title</option>
-            <option value="author">Filter By Author</option>
-            <option value="year">Filter By Year</option>
-            <option value="none">No Filter Selected</option>
-          </select>
-          <select id="sortBy" onChange={this.changeSortBy} value={this.state.sortBy}>
-            <option value="titleAsc">Title (Ascending)</option>
-            <option value="titleDesc">Title (Descending)</option>
-            <option value="authorAsc">Author (Ascending)</option>
-            <option value="authorDesc">Author (Descending)</option>
-            <option value="yearAsc">Year (Ascending)</option>
-            <option value="yearDesc">Year (Descending)</option>
-            <option value="none">No Sort Selected</option>
-          </select>
-          {this.state.filterBy !== 'none' &&
-            <div>
-              <p>Filter Term:</p>
-              <input type="text" value={this.state.filterValue} onChange={this.changeFilterValue}/>
-            </div>
-          }
-          { this.state.filterBy === 'none' &&
-            <div>
-              <p>Limit:</p>
-              <select id="limit" onChange={this.changeLimit} value={this.state.limit}>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="0">No Limit</option>
-              </select>
-            </div>
-          }
-        </div>
+        <p>Filter And Sorting Options:</p>
+        <FilterOptions filterBy={this.state.filterBy} changeFilterBy={this.changeFilterBy} />
+        <SortOptions sortBy={this.state.sortBy} changeSortBy={this.changeSortBy} />
+        {this.state.filterBy === 'none' ? (
+          <LimitOptions limit={this.state.limit} changeLimit={this.changeLimit} />
+        ) : (
+          <FilterInput filterValue={this.state.filterValue} changeFilterValue={this.changeFilterValue}/>
+        )}
         <BookDisplay 
           books={this.state.books} 
           filterBy={this.state.filterBy} 

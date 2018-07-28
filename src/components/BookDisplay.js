@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
+import '../css/BookDisplay.css';
 import _ from 'lodash';
 
 class BookDisplay extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleFilter(books, filterTarget, filterValue) {
     switch (filterTarget) {
@@ -48,15 +46,16 @@ class BookDisplay extends Component {
     const filteredBooks = this.handleFilter(books, filterBy, filterValue);
     const adjustedBooks = this.handleSort(filteredBooks, sortBy);
     const finalBooks = (limit !== 0)
-        ? adjustedBooks.splice(0, limit) : adjustedBooks;
-    console.log('limit', limit);
-    console.log('finalBooks', finalBooks);
+      ? adjustedBooks.splice(0, limit) : adjustedBooks;
     const bookList = finalBooks.map(book => {
       return (
-        <div id={book.isbn}>
-          <h4>{book.title}</h4>
-          <p>By {book.author}</p>
-          <p>Year {book.year}</p>
+        <div>
+          <br />
+          <div className="BookBlock" key={book.isbn || 0}>
+            <h4>{book.title}</h4>
+            <p>By {book.author}</p>
+            <p>Year {book.year}</p>
+          </div>
         </div>
       );
     });

@@ -1,0 +1,8 @@
+.BookBlock {
+    background-color: #222;
+    border-color: cornflowerblue;
+    border-style: outset;
+    border-width: 3px;
+    color: white;
+    padding-bottom: 5px;
+}
