@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './roundbook.png';
+import logo from './img/roundbook.png';
 import './css/App.css';
 import BookDisplay from './components/BookDisplay';
 import FilterOptions from './components/FilterOptions';
