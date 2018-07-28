@@ -66,10 +66,11 @@ class BookDisplay extends Component {
       return (
         <div>
           <br />
-          <div className="BookBlock" key={book.isbn || 0}>
+          <div className="BookBlock" key={book.isbn}>
             <h4>{book.title}</h4>
-            <p>By {book.author}</p>
-            <p>Year {book.year}</p>
+            <p>By {book.author || "Anonymous"}</p>
+            <p>Year: {book.year || "N/A"}</p>
+            <p>ISBN: {book.isbn || "N/A"}</p>
           </div>
         </div>
       );
