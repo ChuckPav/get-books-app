@@ -35,19 +35,36 @@ class App extends Component {
       });
   }
 
+  /**
+   * 
+   * @param {String} value 
+   */
   changeFilterBy(value) {
     this.setState({filterBy: value});
   }
 
+  /**
+   * 
+   * @param {String} value 
+   */
   changeFilterValue(value) {
     this.setState({filterValue: value});
   }
 
+  /**
+   * 
+   * @param {String} value 
+   */
   changeSortBy(value) {
     this.setState({sortBy: value});
   }
 
+  /**
+   * 
+   * @param {String} value 
+   */
   changeLimit(value) {
+    // Have to parse into int because setting value via select always casts to string
     const limit = parseInt(value)
     this.setState({ limit });
   }

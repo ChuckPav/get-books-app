@@ -4,35 +4,46 @@ import _ from 'lodash';
 
 class BookDisplay extends Component {
 
+  /**
+   * 
+   * @param {Array} books 
+   * @param {String} filterTarget 
+   * @param {String} filterValue 
+   */
   handleFilter(books, filterTarget, filterValue) {
     switch (filterTarget) {
-        case 'title':
-          return _.filter(books, (book) => { return book.title.includes(filterValue) });
-        case 'author':
-          return _.filter(books, (book) => { return book.author.includes(filterValue) });
-        case 'year':
-          return _.filter(books, (book) => { return (book.year || "").includes(filterValue) });
-        default:
-          return books;
+      case 'title':
+        return _.filter(books, (book) => { return book.title.includes(filterValue) });
+      case 'author':
+        return _.filter(books, (book) => { return book.author.includes(filterValue) });
+      case 'year':
+        return _.filter(books, (book) => { return (book.year || "").includes(filterValue) });
+      default:
+        return books;
     }
   }
 
+  /**
+   * 
+   * @param {Array} books 
+   * @param {String} sortTarget 
+   */
   handleSort(books, sortTarget) {
     switch (sortTarget) {
-        case 'titleAsc':
-          return _.sortBy(books, (book) => { return book.title});
-        case 'titleDesc':
-          return _.sortBy(books, (book) => { return book.title}).reverse();
-        case 'authorAsc':
-          return _.sortBy(books, (book) => { return book.author});
-        case 'authorDesc':
-          return _.sortBy(books, (book) => { return book.author}).reverse();
-        case 'yearAsc':
-          return _.sortBy(books, (book) => { return book.year});
-        case 'yearDesc':
-          return _.sortBy(books, (book) => { return book.year}).reverse();
-        default:
-           return books;
+      case 'titleAsc':
+        return _.sortBy(books, (book) => { return book.title});
+      case 'titleDesc':
+        return _.sortBy(books, (book) => { return book.title}).reverse();
+      case 'authorAsc':
+        return _.sortBy(books, (book) => { return book.author});
+      case 'authorDesc':
+        return _.sortBy(books, (book) => { return book.author}).reverse();
+      case 'yearAsc':
+        return _.sortBy(books, (book) => { return book.year});
+      case 'yearDesc':
+        return _.sortBy(books, (book) => { return book.year}).reverse();
+      default:
+        return books;
     }
   }
 
@@ -43,6 +54,10 @@ class BookDisplay extends Component {
     const sortBy = _.get(this.props, 'sortBy');
     const limit = _.get(this.props, 'limit');
 
+    /**
+     * Apply filters, THEN sort (if applicable). Apply a limit AFTER filtering/sorting
+     * in order to prevent removing desired results.
+     */
     const filteredBooks = this.handleFilter(books, filterBy, filterValue);
     const adjustedBooks = this.handleSort(filteredBooks, sortBy);
     const finalBooks = (limit !== 0)
