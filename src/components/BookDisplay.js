@@ -13,11 +13,17 @@ class BookDisplay extends Component {
   handleFilter(books, filterTarget, filterValue) {
     switch (filterTarget) {
       case 'title':
-        return _.filter(books, (book) => { return book.title.includes(filterValue) });
+        return _.filter(books, book => { 
+          return (book.title || "").toLowerCase().includes(filterValue.toLowerCase()) 
+        });
       case 'author':
-        return _.filter(books, (book) => { return book.author.includes(filterValue) });
+        return _.filter(books, book => { 
+          return (book.author || "").toLowerCase().includes(filterValue.toLowerCase()) 
+        });
       case 'year':
-        return _.filter(books, (book) => { return (book.year || "").includes(filterValue) });
+        return _.filter(books, book => { 
+          return (book.year || "").toLowerCase().includes(filterValue.toLowerCase()) 
+        });
       default:
         return books;
     }
@@ -31,17 +37,17 @@ class BookDisplay extends Component {
   handleSort(books, sortTarget) {
     switch (sortTarget) {
       case 'titleAsc':
-        return _.sortBy(books, (book) => { return book.title});
+        return _.sortBy(books, book => { return book.title});
       case 'titleDesc':
-        return _.sortBy(books, (book) => { return book.title}).reverse();
+        return _.sortBy(books, book => { return book.title}).reverse();
       case 'authorAsc':
-        return _.sortBy(books, (book) => { return book.author});
+        return _.sortBy(books, book => { return book.author});
       case 'authorDesc':
-        return _.sortBy(books, (book) => { return book.author}).reverse();
+        return _.sortBy(books, book => { return book.author}).reverse();
       case 'yearAsc':
-        return _.sortBy(books, (book) => { return book.year});
+        return _.sortBy(books, book => { return book.year});
       case 'yearDesc':
-        return _.sortBy(books, (book) => { return book.year}).reverse();
+        return _.sortBy(books, book => { return book.year}).reverse();
       default:
         return books;
     }

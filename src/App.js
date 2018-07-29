@@ -16,7 +16,8 @@ class App extends Component {
       filterBy: 'none',
       filterValue: '',
       sortBy: 'none',
-      limit: 0
+      limit: 0,
+      errorMessage: ''
     };
 
     this.changeFilterBy = this.changeFilterBy.bind(this);
@@ -32,6 +33,10 @@ class App extends Component {
       })
       .then(data => {
         this.setState({books: data});
+      })
+      .catch(error => {
+        this.setState({errorMessage: 'An error occured, check your console!!!'});
+        console.log("ERROR: ", error);
       });
   }
 
@@ -76,6 +81,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Check Out These Books!</h1>
         </header>
+        { this.state.errorMessage &&
+          <h1>{this.state.errorMessage}</h1>
+        }
         <p>Filter And Sorting Options:</p>
         <FilterOptions filterBy={this.state.filterBy} changeFilterBy={this.changeFilterBy} />
         <SortOptions sortBy={this.state.sortBy} changeSortBy={this.changeSortBy} />
